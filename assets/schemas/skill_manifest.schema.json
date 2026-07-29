@@ -1,0 +1,45 @@
+﻿{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ancient-costume-mural-reconstruction/schemas/skill_manifest.schema.json",
+  "title": "SkillManifest",
+  "description": "Registry manifest listing every skill, its inputs/outputs schemas, tools, gates and routing hints.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "skills"],
+  "properties": {
+    "version": {"type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$"},
+    "skills": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/SkillEntry"}
+    }
+  },
+  "$defs": {
+    "SkillEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "kind", "path", "description", "inputs_schema", "outputs_schema", "tools", "quality_gates", "step"],
+      "properties": {
+        "name": {"type": "string", "pattern": "^[a-z][a-z0-9-]*$", "description": "Unique skill identifier."},
+        "kind": {"type": "string", "enum": ["orchestrator", "router", "sub-agent"]},
+        "path": {"type": "string", "description": "Path to the skill markdown file relative to project root."},
+        "description": {"type": "string", "minLength": 1},
+        "step": {"type": "integer", "minimum": 0, "description": "Execution order (0 = orchestrator/router, ascending for sub-agents)."},
+        "inputs_schema": {"type": "string", "description": "$id or path of the JSON schema for inputs."},
+        "outputs_schema": {"type": "string", "description": "$id or path of the JSON schema for outputs."},
+        "tools": {"type": "array", "items": {"type": "string"}, "description": "Names of tools/hooks this skill may invoke."},
+        "quality_gates": {"type": "array", "items": {"type": "string"}, "description": "Gate identifiers (U1-U6, G1-G4) enforced by this skill."},
+        "routing": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "analysis_types": {"type": "array", "items": {"type": "string", "enum": ["iconography", "construction", "materials", "3d", "comparison", "combined"]}},
+            "always_required": {"type": "boolean"},
+            "optional": {"type": "boolean"}
+          }
+        },
+        "fallback_skill": {"type": "string", "description": "Skill name to invoke when this one fails (graceful degradation)."}
+      }
+    }
+  }
+}

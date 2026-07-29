@@ -1,0 +1,1 @@
+﻿{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"emit_event.schema.json","title":"EmitEventOutput","type":"object","additionalProperties":false,"required":["emitted","event"],"properties":{"emitted":{"type":"boolean"},"event":{"type":"string"},"subscribers_notified":{"type":"integer"}}}

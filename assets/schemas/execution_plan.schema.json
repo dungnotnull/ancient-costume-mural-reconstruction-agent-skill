@@ -1,0 +1,28 @@
+﻿{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ancient-costume-mural-reconstruction/schemas/execution_plan.schema.json",
+  "title": "ExecutionPlan",
+  "description": "Output of the chain-of-thought router: an ordered execution plan of sub-agents.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["analysis_type", "sequence", "rationale", "fallback_chain"],
+  "properties": {
+    "analysis_type": {"type": "string", "enum": ["iconography", "construction", "materials", "3d", "comparison", "combined"]},
+    "sequence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["skill", "step", "required"],
+        "properties": {
+          "skill": {"type": "string"},
+          "step": {"type": "integer", "minimum": 1},
+          "required": {"type": "boolean"},
+          "rationale": {"type": "string"}
+        }
+      }
+    },
+    "rationale": {"type": "string", "minLength": 1, "description": "Chain-of-thought reasoning that produced the sequence."},
+    "fallback_chain": {"type": "array", "items": {"type": "string"}}
+  }
+}

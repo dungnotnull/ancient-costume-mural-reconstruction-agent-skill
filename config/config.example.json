@@ -1,0 +1,75 @@
+﻿{
+  "app_name": "ancient-costume-mural-reconstruction",
+  "version": "2.0.0",
+  "environment": "production",
+  "llm": {
+    "model": "claude-sonnet-4-5",
+    "provider": "anthropic",
+    "temperature": 0.2,
+    "top_p": 0.95,
+    "max_output_tokens": 4096,
+    "request_timeout_seconds": 60,
+    "max_retries": 3,
+    "retry_base_delay_seconds": 1.5,
+    "context_window_tokens": 200000,
+    "reserved_output_tokens": 4096
+  },
+  "harness": {
+    "default_language": "en",
+    "supported_languages": ["en", "vi"],
+    "max_clarifying_questions": 2,
+    "max_gate_retries": 2,
+    "enforce_gates": true,
+    "emit_limitation_banner": true,
+    "output_template": "default",
+    "enable_router": true,
+    "enable_hooks": true,
+    "enable_quality_gates": true
+  },
+  "knowledge_pipeline": {
+    "keywords": [
+      "ancient costume reconstruction",
+      "mural statue iconography garment",
+      "period pattern cutting textile",
+      "archaeological dye history",
+      "costume evidence hierarchy reconstruction",
+      "3D garment model heritage",
+      "archaeological textile fibre analysis",
+      "natural dye madder woad indigo",
+      "Coptic textile burial garment",
+      "Tang Han dynasty silk robe"
+    ],
+    "arxiv_categories": ["cs.GR", "cs.CV", "cs.AI", "hist-econ"],
+    "rss_feeds": [
+      "https://www.textilesociety.org.uk/feed/",
+      "https://www.costumesociety.org.uk/feed/"
+    ],
+    "max_results_per_source": 10,
+    "max_new_entries_per_run": 20,
+    "request_timeout_seconds": 30,
+    "max_retries": 3,
+    "backup_brain_before_write": true,
+    "academic_schedule_cron": "0 8 * * 1",
+    "news_schedule_cron": "0 7 * * *"
+  },
+  "features": {
+    "enable_knowledge_crawl": true,
+    "enable_router_chain_of_thought": true,
+    "enable_evidence_collector": true,
+    "enable_3d_reconstruction": true,
+    "enable_scenarios": true,
+    "enable_vietnamese_output": true,
+    "enable_strict_evidence_hierarchy": true,
+    "enable_disclosure_before_conclusion": true,
+    "enable_event_emission": false
+  },
+  "logging": {
+    "level": "INFO",
+    "log_dir": "logs",
+    "enable_file_logging": true,
+    "enable_console_logging": true,
+    "json_format": false,
+    "rotate_max_bytes": 5242880,
+    "rotate_backup_count": 5
+  }
+}

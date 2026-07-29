@@ -1,0 +1,61 @@
+﻿{
+  "version": "2.0.0",
+  "hooks": [
+    {
+      "name": "log_pre_harness",
+      "event": "pre_harness",
+      "scope": "harness",
+      "handler": "tools.hooks.log_event_hook",
+      "priority": 0
+    },
+    {
+      "name": "log_post_harness",
+      "event": "post_harness",
+      "scope": "harness",
+      "handler": "tools.hooks.log_event_hook",
+      "priority": 100
+    },
+    {
+      "name": "log_pre_skill",
+      "event": "pre_skill",
+      "scope": "all",
+      "handler": "tools.hooks.log_event_hook",
+      "priority": 0
+    },
+    {
+      "name": "log_post_skill",
+      "event": "post_skill",
+      "scope": "all",
+      "handler": "tools.hooks.log_event_hook",
+      "priority": 100
+    },
+    {
+      "name": "capture_error",
+      "event": "on_error",
+      "scope": "all",
+      "handler": "tools.hooks.capture_error_hook",
+      "priority": 0
+    },
+    {
+      "name": "degradation_banner",
+      "event": "on_degradation",
+      "scope": "all",
+      "handler": "tools.hooks.degradation_banner_hook",
+      "priority": 0
+    },
+    {
+      "name": "gate_fail_record",
+      "event": "on_gate_fail",
+      "scope": "all",
+      "handler": "tools.hooks.gate_fail_record_hook",
+      "priority": 0
+    },
+    {
+      "name": "event_emit_forwarder",
+      "event": "on_event_emit",
+      "scope": "all",
+      "handler": "tools.hooks.event_emit_forwarder_hook",
+      "priority": 0
+    }
+  ]
+}

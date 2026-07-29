@@ -1,0 +1,37 @@
+﻿{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ancient-costume-mural-reconstruction/schemas/verdict.schema.json",
+  "title": "Verdict",
+  "description": "Risk-disclosed conclusion produced by sub-advisor.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["verdict", "disclosure_before_conclusion", "scenarios", "key_risks", "evidence_chain", "remediation"],
+  "properties": {
+    "verdict": {"type": "string", "enum": ["Evidence-Based Reconstruction", "Plausible (interpretive)", "Speculative", "Inconclusive"]},
+    "disclosure_before_conclusion": {"type": "string", "minLength": 1, "description": "Mandatory disclosure text appearing before the verdict."},
+    "degradation_level": {"type": "integer", "minimum": 0, "maximum": 4},
+    "scenarios": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["scenario", "summary"],
+        "properties": {"scenario": {"type": "string"}, "summary": {"type": "string"}}
+      }
+    },
+    "key_risks": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["risk", "probability", "impact"],
+        "properties": {
+          "risk": {"type": "string"},
+          "probability": {"type": "string", "enum": ["low", "medium", "high"]},
+          "impact": {"type": "string", "enum": ["low", "medium", "high"]}
+        }
+      }
+    },
+    "evidence_chain": {"type": "array", "items": {"type": "string"}},
+    "remediation": {"type": "array", "items": {"type": "string"}}
+  }
+}

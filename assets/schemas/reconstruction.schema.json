@@ -1,0 +1,108 @@
+﻿{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ancient-costume-mural-reconstruction/schemas/reconstruction.schema.json",
+  "title": "Reconstruction",
+  "description": "Evidence-graded reconstruction proposal produced by sub-core-analysis.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["iconography", "construction", "materials_dyes", "evidence_hierarchy", "reconstruction_3d", "scenarios"],
+  "properties": {
+    "iconography": {
+      "type": "object",
+      "required": ["form", "drape", "layering", "accessories", "status_markers"],
+      "properties": {
+        "form": {"type": "string"},
+        "drape": {"type": "string"},
+        "layering": {"type": "string"},
+        "accessories": {"type": "string"},
+        "status_markers": {"type": "string"}
+      }
+    },
+    "construction": {
+      "type": "object",
+      "required": ["pattern_strategy", "seaming_fastening", "draping_vs_cutting", "undergarments"],
+      "properties": {
+        "pattern_strategy": {"type": "string"},
+        "seaming_fastening": {"type": "string"},
+        "draping_vs_cutting": {"type": "string"},
+        "undergarments": {"type": "string"}
+      }
+    },
+    "materials_dyes": {
+      "type": "object",
+      "required": ["fibers", "weaves", "dye_palette", "surface_treatment"],
+      "properties": {
+        "fibers": {"type": "string"},
+        "weaves": {"type": "string"},
+        "dye_palette": {"type": "string"},
+        "surface_treatment": {"type": "string"}
+      }
+    },
+    "evidence_hierarchy": {
+      "type": "object",
+      "required": ["stated", "applied_per_claim", "conflicts"],
+      "properties": {
+        "stated": {"type": "string", "description": "extant > iconographic > textual > ethnographic"},
+        "applied_per_claim": {"type": "boolean"},
+        "conflicts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["claim", "iconographic_reading", "extant_resolution"],
+            "properties": {
+              "claim": {"type": "string"},
+              "iconographic_reading": {"type": "string"},
+              "extant_resolution": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    "reconstruction_3d": {
+      "type": "object",
+      "required": ["intent", "layer_build", "scale_cm", "panels", "overall_confidence"],
+      "properties": {
+        "intent": {"type": "string", "enum": ["display", "study", "wearability_test"]},
+        "layer_build": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["layer", "seam_map"],
+            "properties": {
+              "layer": {"type": "string"},
+              "seam_map": {"type": "string"}
+            }
+          }
+        },
+        "scale_cm": {"type": "object", "required": ["body_block", "anthropometrics_source"], "properties": {"body_block": {"type": "string"}, "anthropometrics_source": {"type": "string"}}},
+        "panels": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "fiber_weave_dye", "confidence"],
+            "properties": {
+              "name": {"type": "string"},
+              "fiber_weave_dye": {"type": "string"},
+              "confidence": {"type": "string", "enum": ["H", "M", "L"]}
+            }
+          }
+        },
+        "overall_confidence": {"type": "string", "enum": ["H", "M", "L"]}
+      }
+    },
+    "scenarios": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["scenario", "assumptions", "decisive_missing_evidence"],
+        "properties": {
+          "scenario": {"type": "string", "enum": ["best", "base", "worst"]},
+          "assumptions": {"type": "array", "items": {"type": "string"}},
+          "decisive_missing_evidence": {"type": "string"}
+        }
+      }
+    }
+  }
+}

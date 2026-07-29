@@ -1,0 +1,31 @@
+﻿{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ancient-costume-mural-reconstruction/schemas/tool_definitions.schema.json",
+  "title": "ToolDefinitions",
+  "description": "Registry of agent-invocable tools with input/output JSON schemas and execution handler bindings.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "tools"],
+  "properties": {
+    "version": {"type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$"},
+    "tools": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/ToolEntry"}}
+  },
+  "$defs": {
+    "ToolEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "description", "input_schema", "output_schema", "handler", "category"],
+      "properties": {
+        "name": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+        "description": {"type": "string", "minLength": 1},
+        "category": {"type": "string", "enum": ["retrieval", "analysis", "validation", "knowledge", "io", "utility"]},
+        "input_schema": {"type": "string", "description": "JSON schema $id or path describing the tool input."},
+        "output_schema": {"type": "string", "description": "JSON schema $id or path describing the tool output."},
+        "handler": {"type": "string", "description": "Python dotted path to the execution handler function."},
+        "timeout_seconds": {"type": "integer", "minimum": 1, "default": 60},
+        "idempotent": {"type": "boolean", "default": false},
+        "requires_network": {"type": "boolean", "default": false}
+      }
+    }
+  }
+}

@@ -1,0 +1,93 @@
+﻿{
+  "version": "2.0.0",
+  "tools": [
+    {
+      "name": "search_knowledge_base",
+      "description": "Search SECOND-KNOWLEDGE-BRAIN.md for Tier-labelled citations matching keywords; returns ranked entries.",
+      "category": "knowledge",
+      "input_schema": "assets/schemas/tool_inputs/search_knowledge_base.schema.json",
+      "output_schema": "assets/schemas/tool_outputs/search_knowledge_base.schema.json",
+      "handler": "tools.agent_tools.search_knowledge_base",
+      "timeout_seconds": 30,
+      "idempotent": true,
+      "requires_network": false
+    },
+    {
+      "name": "fetch_museum_record",
+      "description": "Fetch a museum collection record by accession number and institution; returns normalized evidence item.",
+      "category": "retrieval",
+      "input_schema": "assets/schemas/tool_inputs/fetch_museum_record.schema.json",
+      "output_schema": "assets/schemas/tool_outputs/evidence_item.schema.json",
+      "handler": "tools.agent_tools.fetch_museum_record",
+      "timeout_seconds": 45,
+      "idempotent": true,
+      "requires_network": true
+    },
+    {
+      "name": "build_3d_layer",
+      "description": "Build a single 3D reconstruction layer (under/mid/outer) with seam map and per-panel material assignment.",
+      "category": "analysis",
+      "input_schema": "assets/schemas/tool_inputs/build_3d_layer.schema.json",
+      "output_schema": "assets/schemas/tool_outputs/3d_layer.schema.json",
+      "handler": "tools.agent_tools.build_3d_layer",
+      "timeout_seconds": 60,
+      "idempotent": true,
+      "requires_network": false
+    },
+    {
+      "name": "queue_crawl_gap",
+      "description": "Queue a knowledge-base crawl gap as a crawl query for the knowledge_updater pipeline; idempotent per query.",
+      "category": "knowledge",
+      "input_schema": "assets/schemas/tool_inputs/queue_crawl_gap.schema.json",
+      "output_schema": "assets/schemas/tool_outputs/queue_crawl_gap.schema.json",
+      "handler": "tools.agent_tools.queue_crawl_gap",
+      "timeout_seconds": 10,
+      "idempotent": true,
+      "requires_network": false
+    },
+    {
+      "name": "run_quality_gate",
+      "description": "Evaluate a single quality gate (U1-U6 or G1-G4) against a payload and return pass/fail with auto-fix advice.",
+      "category": "validation",
+      "input_schema": "assets/schemas/tool_inputs/run_quality_gate.schema.json",
+      "output_schema": "assets/schemas/tool_outputs/run_quality_gate.schema.json",
+      "handler": "tools.agent_tools.run_quality_gate",
+      "timeout_seconds": 15,
+      "idempotent": true,
+      "requires_network": false
+    },
+    {
+      "name": "validate_verdict",
+      "description": "Validate a verdict object against the verdict schema and the disclosure-before-conclusion rule.",
+      "category": "validation",
+      "input_schema": "assets/schemas/verdict.schema.json",
+      "output_schema": "assets/schemas/tool_outputs/validate_verdict.schema.json",
+      "handler": "tools.agent_tools.validate_verdict",
+      "timeout_seconds": 15,
+      "idempotent": true,
+      "requires_network": false
+    },
+    {
+      "name": "render_report",
+      "description": "Render the final harness report from a verdict + reconstruction + evidence bundle using the declared template.",
+      "category": "io",
+      "input_schema": "assets/schemas/tool_inputs/render_report.schema.json",
+      "output_schema": "assets/schemas/tool_outputs/render_report.schema.json",
+      "handler": "tools.agent_tools.render_report",
+      "timeout_seconds": 20,
+      "idempotent": true,
+      "requires_network": false
+    },
+    {
+      "name": "emit_event",
+      "description": "Emit a structured lifecycle event to the hooks bus and (optionally) the structured log.",
+      "category": "utility",
+      "input_schema": "assets/schemas/tool_inputs/emit_event.schema.json",
+      "output_schema": "assets/schemas/tool_outputs/emit_event.schema.json",
+      "handler": "tools.agent_tools.emit_event",
+      "timeout_seconds": 5,
+      "idempotent": false,
+      "requires_network": false
+    }
+  ]
+}

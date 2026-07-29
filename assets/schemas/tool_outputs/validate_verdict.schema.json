@@ -1,0 +1,1 @@
+﻿{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"validate_verdict.schema.json","title":"ValidateVerdictOutput","type":"object","additionalProperties":false,"required":["valid","errors"],"properties":{"valid":{"type":"boolean"},"errors":{"type":"array","items":{"type":"string"}}}}

@@ -1,0 +1,1 @@
+﻿{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"render_report.schema.json","title":"RenderReportOutput","type":"object","additionalProperties":false,"required":["report","language"],"properties":{"report":{"type":"string"},"language":{"type":"string"},"sections_present":{"type":"array","items":{"type":"string"}}}}

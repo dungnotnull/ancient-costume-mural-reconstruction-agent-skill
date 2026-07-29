@@ -1,0 +1,23 @@
+{
+  "library": "972026",
+  "skill_id": 240,
+  "slug": "ancient-costume-mural-reconstruction",
+  "version": "2.0.0",
+  "status": "complete",
+  "phases": {
+    "0": { "name": "Research & Skill Architecture", "status": "complete", "completion": 100 },
+    "1": { "name": "Core Sub-Skills", "status": "complete", "completion": 100 },
+    "2": { "name": "Main Harness + Quality Gates", "status": "complete", "completion": 100 },
+    "3": { "name": "Knowledge Pipeline", "status": "complete", "completion": 100 },
+    "4": { "name": "Testing & Validation", "status": "complete", "completion": 100 },
+    "5": { "name": "Integration & Polish", "status": "complete", "completion": 100 },
+    "6": { "name": "Open-Source Hardening", "status": "complete", "completion": 100 },
+    "7": { "name": "Architecture Enhancement & Production Hardening", "status": "complete", "completion": 100 }
+  },
+  "validators": {
+    "validate_project": "tools/validate_project.py",
+    "run_test_scenarios": "tools/run_test_scenarios.py",
+    "test_knowledge_updater": "tools/test_knowledge_updater.py"
+  },
+  "last_updated": "2025-01-27"
+}

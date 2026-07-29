@@ -1,0 +1,1 @@
+﻿{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"run_quality_gate.schema.json","title":"RunQualityGateInput","type":"object","additionalProperties":false,"required":["gate","payload"],"properties":{"gate":{"type":"string","enum":["U1","U2","U3","U4","U5","U6","G1","G2","G3","G4"]},"payload":{"type":"object"}}}

@@ -1,0 +1,95 @@
+﻿{
+  "version": "2.0.0",
+  "skills": [
+    {
+      "name": "ancient-costume-mural-reconstruction",
+      "kind": "orchestrator",
+      "path": "skills/main.md",
+      "description": "Main harness orchestrator: pre-flight language detection, router dispatch, quality gates, graceful degradation, and final report assembly.",
+      "step": 0,
+      "inputs_schema": "assets/schemas/requirements.schema.json",
+      "outputs_schema": "assets/schemas/verdict.schema.json",
+      "tools": ["Skill", "Read", "Write", "Bash", "emit_event", "run_quality_gate", "render_report"],
+      "quality_gates": ["U1", "U2", "U3", "U4", "U5", "U6"],
+      "fallback_skill": ""
+    },
+    {
+      "name": "sub-router",
+      "kind": "router",
+      "path": "skills/sub-router.md",
+      "description": "Chain-of-thought router that maps the requirements bundle to an ordered execution plan of specialized sub-agents, with routing rationale and fallback chain.",
+      "step": 1,
+      "inputs_schema": "assets/schemas/requirements.schema.json",
+      "outputs_schema": "assets/schemas/execution_plan.schema.json",
+      "tools": ["Read", "emit_event"],
+      "quality_gates": ["U6"],
+      "routing": {"analysis_types": ["iconography", "construction", "materials", "3d", "comparison", "combined"], "always_required": true, "optional": false},
+      "fallback_skill": "sub-core-analysis"
+    },
+    {
+      "name": "sub-gather-requirements",
+      "kind": "sub-agent",
+      "path": "skills/sub-gather-requirements.md",
+      "description": "Intake specialist: clarify object, scope, timeframe, available inputs, audience, language before any data fetching.",
+      "step": 2,
+      "inputs_schema": "assets/schemas/requirements.schema.json",
+      "outputs_schema": "assets/schemas/requirements.schema.json",
+      "tools": ["Read"],
+      "quality_gates": ["U4", "U6"],
+      "routing": {"analysis_types": ["iconography", "construction", "materials", "3d", "comparison", "combined"], "always_required": true, "optional": false},
+      "fallback_skill": ""
+    },
+    {
+      "name": "sub-evidence-collector",
+      "kind": "sub-agent",
+      "path": "skills/sub-evidence-collector.md",
+      "description": "Data librarian: fetch museum collection records, extant textile parallels, iconographic comparanda, period standards, and recent academic developments.",
+      "step": 3,
+      "inputs_schema": "assets/schemas/requirements.schema.json",
+      "outputs_schema": "assets/schemas/evidence_bundle.schema.json",
+      "tools": ["WebSearch", "WebFetch", "Read", "fetch_museum_record", "search_knowledge_base"],
+      "quality_gates": ["U1", "U3"],
+      "routing": {"analysis_types": ["iconography", "construction", "materials", "3d", "comparison", "combined"], "always_required": true, "optional": false},
+      "fallback_skill": ""
+    },
+    {
+      "name": "sub-core-analysis",
+      "kind": "sub-agent",
+      "path": "skills/sub-core-analysis.md",
+      "description": "Reconstruction specialist: iconography -> construction -> materials/dyes -> evidence hierarchy -> evidence-graded 3D reconstruction with scenarios.",
+      "step": 4,
+      "inputs_schema": "assets/schemas/evidence_bundle.schema.json",
+      "outputs_schema": "assets/schemas/reconstruction.schema.json",
+      "tools": ["ImageAnalysis", "Read", "WebFetch", "search_knowledge_base", "build_3d_layer"],
+      "quality_gates": ["G1", "G2", "G3", "G4", "U6"],
+      "routing": {"analysis_types": ["iconography", "construction", "materials", "3d", "combined"], "always_required": true, "optional": false},
+      "fallback_skill": ""
+    },
+    {
+      "name": "sub-knowledge-updater",
+      "kind": "sub-agent",
+      "path": "skills/sub-knowledge-updater.md",
+      "description": "Research librarian: query SECOND-KNOWLEDGE-BRAIN.md for Tier-labelled citations and flag crawl gaps for the pipeline.",
+      "step": 5,
+      "inputs_schema": "assets/schemas/reconstruction.schema.json",
+      "outputs_schema": "assets/schemas/evidence_bundle.schema.json",
+      "tools": ["Read", "WebSearch", "Bash", "search_knowledge_base", "queue_crawl_gap"],
+      "quality_gates": ["U1", "U3"],
+      "routing": {"analysis_types": ["iconography", "construction", "materials", "3d", "comparison", "combined"], "always_required": false, "optional": true},
+      "fallback_skill": ""
+    },
+    {
+      "name": "sub-advisor",
+      "kind": "sub-agent",
+      "path": "skills/sub-advisor.md",
+      "description": "Senior advisor: synthesize all prior analysis into a risk-disclosed conclusion with a full evidence chain and remediation.",
+      "step": 6,
+      "inputs_schema": "assets/schemas/reconstruction.schema.json",
+      "outputs_schema": "assets/schemas/verdict.schema.json",
+      "tools": ["Skill", "emit_event", "validate_verdict"],
+      "quality_gates": ["U2", "U5", "U6"],
+      "routing": {"analysis_types": ["iconography", "construction", "materials", "3d", "comparison", "combined"], "always_required": true, "optional": false},
+      "fallback_skill": ""
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+﻿{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ancient-costume-mural-reconstruction/schemas/evidence_bundle.schema.json",
+  "title": "EvidenceBundle",
+  "description": "Aggregated authoritative evidence collected by sub-evidence-collector.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["current_collection_records", "extant_parallels", "authoritative_docs", "recent_developments", "reference_benchmarks", "degradation_level"],
+  "properties": {
+    "current_collection_records": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/EvidenceItem"}
+    },
+    "extant_parallels": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/EvidenceItem"}
+    },
+    "authoritative_docs": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/EvidenceItem"}
+    },
+    "recent_developments": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/EvidenceItem"}
+    },
+    "reference_benchmarks": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/EvidenceItem"}
+    },
+    "degradation_level": {"type": "integer", "minimum": 0, "maximum": 4}
+  },
+  "$defs": {
+    "EvidenceItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "source", "tier", "access_date"],
+      "properties": {
+        "title": {"type": "string", "minLength": 1},
+        "source": {"type": "string", "minLength": 1, "description": "URL or DOI or citation."},
+        "tier": {"type": "integer", "minimum": 1, "maximum": 4},
+        "access_date": {"type": "string", "format": "date"},
+        "accession_number": {"type": "string"},
+        "abstract": {"type": "string"},
+        "limitation_flag": {"type": "boolean", "default": false}
+      }
+    }
+  }
+}

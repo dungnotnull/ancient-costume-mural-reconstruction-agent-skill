@@ -1,0 +1,1 @@
+﻿{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"run_quality_gate.schema.json","title":"RunQualityGateOutput","type":"object","additionalProperties":false,"required":["gate","passed","detail"],"properties":{"gate":{"type":"string"},"passed":{"type":"boolean"},"detail":{"type":"string"},"auto_fix":{"type":"string"},"retries":{"type":"integer"}}}

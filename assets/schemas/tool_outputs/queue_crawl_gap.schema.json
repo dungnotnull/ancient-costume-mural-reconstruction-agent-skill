@@ -1,0 +1,1 @@
+﻿{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"queue_crawl_gap.schema.json","title":"QueueCrawlGapOutput","type":"object","additionalProperties":false,"required":["queued","query"],"properties":{"queued":{"type":"boolean"},"query":{"type":"string"},"gap_file":{"type":"string"}}}

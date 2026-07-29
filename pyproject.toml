@@ -1,0 +1,71 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ancient-costume-mural-reconstruction"
+version = "1.1.0"
+description = "Claude Code skill harness for Ancient Costume Reconstruction & Archaeological Textile History — evidence-backed, risk-disclosed analysis with a self-improving knowledge pipeline."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+authors = [
+    { name = "dungnotull" },
+]
+keywords = [
+    "ancient-costume",
+    "mural",
+    "iconography",
+    "archaeological-textile",
+    "garment-reconstruction",
+    "claude-code-skill",
+    "knowledge-base",
+    "evidence-based",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Text Processing :: Markup :: Markdown",
+]
+dependencies = [
+    "requests>=2.31.0",
+    "feedparser>=6.0.10",
+    "python-dateutil>=2.8.2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4",
+    "pytest-cov>=4.1",
+]
+crawl = [
+    "crawl4ai>=0.3.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/dungnotull/ancient-costume-mural-reconstruction"
+Repository = "https://github.com/dungnotull/ancient-costume-mural-reconstruction"
+Changelog = "https://github.com/dungnotull/ancient-costume-mural-reconstruction/blob/main/CHANGELOG.md"
+
+[project.scripts]
+acmr-knowledge-update = "tools.knowledge_updater:main"
+acmr-validate = "tools.validate_project:main"
+
+[tool.setuptools]
+py-modules = []
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["tools*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tools"]
+python_files = ["test_*.py"]
+addopts = "-ra -q"

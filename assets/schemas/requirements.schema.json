@@ -1,0 +1,68 @@
+﻿{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ancient-costume-mural-reconstruction/schemas/requirements.schema.json",
+  "title": "RequirementsBundle",
+  "description": "Structured intake output produced by sub-gather-requirements.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["object", "scope", "timeframe", "available_inputs", "target_audience", "language", "analysis_type"],
+  "properties": {
+    "object": {
+      "type": "object",
+      "description": "The artifact under analysis: a mural, statue, relief, or site with its period/culture.",
+      "additionalProperties": false,
+      "required": ["kind", "period_culture"],
+      "properties": {
+        "kind": {"type": "string", "enum": ["mural", "statue", "relief", "site", "fragment", "other"]},
+        "label": {"type": "string", "minLength": 1, "description": "Human-readable identifier (e.g. 'Mogao Cave 220')."},
+        "period_culture": {"type": "string", "minLength": 1, "description": "Canonical period/culture label (e.g. 'Tang dynasty')."}
+      }
+    },
+    "scope": {
+      "type": "string",
+      "enum": ["iconography", "construction", "materials", "3d", "comparison", "combined"]
+    },
+    "timeframe": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label", "source"],
+      "properties": {
+        "label": {"type": "string", "minLength": 1},
+        "source": {"type": "string", "enum": ["given", "inferred"]}
+      }
+    },
+    "available_inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["type", "value", "provenance"],
+        "properties": {
+          "type": {"type": "string", "enum": ["image", "url", "accession_number", "reference", "text"]},
+          "value": {"type": "string", "minLength": 1},
+          "provenance": {"type": "string", "enum": ["given", "inferred"]}
+        }
+      }
+    },
+    "target_audience": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "source"],
+      "properties": {
+        "value": {"type": "string", "enum": ["researcher", "curator", "conservator", "maker", "learner"]},
+        "source": {"type": "string", "enum": ["given", "default"]}
+      }
+    },
+    "language": {"type": "string", "enum": ["en", "vi"]},
+    "analysis_type": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "source"],
+      "properties": {
+        "value": {"type": "string", "enum": ["iconography", "construction", "materials", "3d", "comparison", "combined"]},
+        "source": {"type": "string", "enum": ["given", "default"]}
+      }
+    },
+    "constraints": {"type": "array", "items": {"type": "string"}}
+  }
+}
